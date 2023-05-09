@@ -1,0 +1,6 @@
+{
+  "name": "bmp280_Sensor_Driver_Micropython",
+  "version": "1.0.0",
+  "dependencies": {
+  }
+}

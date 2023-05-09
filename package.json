@@ -2,7 +2,5 @@
   "urls": [
     ["bmp280/bmp280.mpy", "github:CarlosErickson/bmp280_Sensor_Driver_Micropython/bmp280.npy"],
   ],
-  "deps": [
-  ],
   "version": "0.1"
 }

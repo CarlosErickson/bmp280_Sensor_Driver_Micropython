@@ -1,0 +1,3 @@
+from bmp280 import Adafruit_BMP280
+from bmp280 import Adafruit_BMP280_I2C
+from bmp280 import Adafruit_BMP280_SPI

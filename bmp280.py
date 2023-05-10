@@ -462,18 +462,18 @@ class Adafruit_BMP280_I2C(Adafruit_BMP280):  # pylint: disable=invalid-name
 
     def _read_register(self, register: int, length: int) -> bytearray:
         """Low level register reading over I2C, returns a list of values"""
-        with self._i2c as i2c:
-            i2c.write(bytes([register & 0xFF]))
-            result = bytearray(length)
-            i2c.readfrom_into(self.address, result)
-            # print("$%02X => %s" % (register, [hex(i) for i in result]))
-            return result
+
+        self._i2c.write(bytes([register & 0xFF]))
+        result = bytearray(length)
+        self._i2c.readfrom_into(self.address, result)
+        # print("$%02X => %s" % (register, [hex(i) for i in result]))
+        return result
 
     def _write_register_byte(self, register: int, value: int) -> None:
         """Low level register writing over I2C, writes one 8-bit value"""
-        with self._i2c as i2c:
-            i2c.writeto(self.address, bytes([register & 0xFF, value & 0xFF]))
-            # print("$%02X <= 0x%02X" % (register, value))
+
+        self._i2c.writeto(self.address, bytes([register & 0xFF, value & 0xFF]))
+        # print("$%02X <= 0x%02X" % (register, value))
 
 
 class Adafruit_BMP280_SPI(Adafruit_BMP280):
@@ -536,17 +536,17 @@ class Adafruit_BMP280_SPI(Adafruit_BMP280):
     def _read_register(self, register: int, length: int) -> bytearray:
         """Low level register reading over SPI, returns a list of values"""
         register = (register | 0x80) & 0xFF  # Read single, bit 7 high.
-        with self._spi as spi:
-            # pylint: disable=no-member
-            spi.write(bytearray([register]))
-            result = bytearray(length)
-            spi.readinto(result)
-            # print("$%02X => %s" % (register, [hex(i) for i in result]))
-            return result
+
+        # pylint: disable=no-member
+        self._spi.write(bytearray([register]))
+        result = bytearray(length)
+        self._spi.readinto(result)
+        # print("$%02X => %s" % (register, [hex(i) for i in result]))
+        return result
 
     def _write_register_byte(self, register: int, value: int) -> None:
         """Low level register writing over SPI, writes one 8-bit value"""
         register &= 0x7F  # Write, bit 7 low.
-        with self._spi as spi:
-            # pylint: disable=no-member
-            spi.write(bytes([register, value & 0xFF]))
+
+        # pylint: disable=no-member
+        self._spi.write(bytes([register, value & 0xFF]))
